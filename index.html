@@ -68,7 +68,6 @@
       }
       var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
       $multiseg.done(function(data){
-        debugger
         var res = {}
         _.each(data.data.values, function(innerVals, outer){
           _.each(innerVals, function(dates, inner){
