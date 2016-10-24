@@ -8,8 +8,8 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="pageviewsContainer">
-       <div class="pageviewsGraph"></div>
-       <div class="pageviewsTable"></div>
+       <div class="pageViewsGraph"></div>
+       <div class="pageViewsTable"></div>
       
     </div>
     <div class="slotStoryPageviews">
@@ -24,6 +24,7 @@
         unit: "hour"
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
+        debugger
         var $chart = $('.pageViewsGraph').MPChart()
         var $table = $('.pageViewsTable').MPTable()
         $chart.MPChart('setData', data);
