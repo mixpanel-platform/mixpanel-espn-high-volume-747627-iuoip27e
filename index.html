@@ -25,9 +25,10 @@
           highchartsOptions: {
               tooltip: {
                   formatter: function () {
-                    debugger
-                      return 'The value for <b>' + this.x +
-                          '</b> is <b>' + this.y + '</b>';
+                    var dateObj = new Date(this.x)
+                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                    var response = [mon, date, hour].join(' ') + ':' + this.y
+                    return response
                   }
               },
             xAxis: {
