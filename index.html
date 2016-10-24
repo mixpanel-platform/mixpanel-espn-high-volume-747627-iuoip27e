@@ -27,9 +27,7 @@
               tickInterval: 36e5,
               labels: {
                 formatter: function () {
-                  debugger
-                  console.log(this.value)
-                    return this.value
+                    return new Date(this.value).toISOString
                 }
               }
             },
