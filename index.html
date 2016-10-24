@@ -24,9 +24,12 @@
           highchartsOptions: {
             xAxis: {
               type: 'datetime',
-              dateTimeLabelFormats: {
-                 day: '%d %b %Y'    //ex- 01 Jan 2016
-              }
+              labels: {
+                format: '{value: "%d %b %Y"}',
+                align: 'right',
+                rotation: -30
+            }
+            
               // units: [
               //   ['hours', 1]
               //   ['days', 1]
