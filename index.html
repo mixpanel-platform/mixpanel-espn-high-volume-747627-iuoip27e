@@ -22,7 +22,11 @@
       MP.api.segment('Page View', pageViewParams).done(function(data){
         var $chart = $('.pageViewsChart').MPChart({
           highchartsOptions: {
-            dateFormat: '%h %d %R'
+            xAxis: {
+              type: 'datetime',
+              dateTimeLabelFormats: {
+                day: '%h %d %R'
+              },
           },
           chartType: 'line',
           data: data
