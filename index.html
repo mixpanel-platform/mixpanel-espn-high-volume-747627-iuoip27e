@@ -35,7 +35,6 @@
               tickInterval: 36e5,
               labels: {
                 formatter: function () {
-                    debugger
                     var dateObj = new Date(this.value)
                     var [day, mon, date, year, hour] = dateObj.toString().split(' ')
                     return [mon, date, hour].join(' ')
