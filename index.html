@@ -11,53 +11,58 @@
     <div class="pageViewsTable"></div>
     <div class="slotViewsChart"></div>
     <div class="slotViewsTable"></div>
-  </body>
-  <script>
-    var pageViewParams = {
-      where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
-      on: 'properties["Referring Page"]',
-      to_date: new Date().toISOString().split('T')[0],
-      from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
-      unit: "hour"
-    }
-    MP.api.segment('Page View', pageViewParams).done(function(data){
-      debugger
-      var $chart = $('.pageViewsChart').MPChart({chartType: 'line'})
-      console.log(data.json)
-      $chart.MPChart('setData', data)
-      // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
-      //   data: data.json
-      // })
-    })
-    
-    var multiSegParams = {
-        event:"Page View",
-        type:"unique",
-        where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
-        limit:25,
-        inner:'properties["Referrer Position"]',
-        outer:'properties["Referrer Slot"]',
-        outer_modifier:'numeric',
-        inner_modifier:'numeric',
-        to_date:'2016-10-24',
-        from_date:'2016-10-19',
-        unit:'hour',
-        buckets:12,
-        allow_more_buckets:false
-    }
-    var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
-    $multiseg.done(function(data){
-      debugger
-       var $chart = $('.slotViewsChart').MPChart({
-        chartType: 'line',
-        data: data.data.values
+    <script>
+      var pageViewParams = {
+        where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
+        on: 'properties["Referring Page"]',
+        to_date: new Date().toISOString().split('T')[0],
+        from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
+        unit: "hour"
+      }
+      MP.api.segment('Page View', pageViewParams).done(function(data){
+        var $chart = $('.pageViewsChart').MPChart({chartType: 'line'})
+        console.log(data.json)
+        $chart.MPChart('setData', data)
+        // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
+        //   data: data.json
+        // })
       })
-      // var $table = $('.slotViewsTable').MPTable({
-      //   data: data.data
-      // })
-    });
-    //MP.api.jql
-    // Multiseg
-    //var HomePageViews = MP.api.query
-  </script>
+      
+      var multiSegParams = {
+          event:"Page View",
+          type:"unique",
+          where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
+          limit:25,
+          inner:'properties["Referrer Position"]',
+          outer:'properties["Referrer Slot"]',
+          outer_modifier:'numeric',
+          inner_modifier:'numeric',
+          to_date:'2016-10-24',
+          from_date:'2016-10-19',
+          unit:'hour',
+          buckets:12,
+          allow_more_buckets:false
+      }
+      var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
+      $multiseg.done(function(data){
+        debugger
+        var res = {}
+        _.each(data.data.values, function(innerVals, outer){
+          _.each(innerVals, function(dates, inner){
+            res[String(outer) + '/' + String(inner)] = dates
+          })
+        })
+         var $chart = $('.slotViewsChart').MPChart({
+          chartType: 'line',
+          data: res
+        })
+        // var $table = $('.slotViewsTable').MPTable({
+        //   data: data.data
+        // })
+      });
+      //MP.api.jql
+      // Multiseg
+      //var HomePageViews = MP.api.query
+    </script>
+  </body>
 </html>
