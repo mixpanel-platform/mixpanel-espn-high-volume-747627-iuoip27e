@@ -19,8 +19,8 @@
       var pageViewParams = {
         where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
         on: 'properties["Referring Page"]',
-        from_date: new Date().toISOString().split('T')[0],
-        to_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
+        to_date: new Date().toISOString().split('T')[0],
+        from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
         unit: "hour"
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
