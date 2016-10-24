@@ -21,12 +21,12 @@
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
         debugger
-        var $chart = $('.pageViewsGraph').appendTo('.pageViewsContainer').MPChart({
+        var $chart = $('.pageViewsGraph').MPChart({
           data: data.json
         })
-        var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
-          data: data.json
-        })
+        // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
+        //   data: data.json
+        // })
       })
       
       var multiSegParams = {
@@ -50,9 +50,9 @@
          var $chart = $('.slotViewsGraph').MPChart({
           data: data.data
         })
-        var $table = $('.slotViewsTable').MPTable({
-          data: data.data
-        })
+        // var $table = $('.slotViewsTable').MPTable({
+        //   data: data.data
+        // })
       });
       //MP.api.jql
       // Multiseg
