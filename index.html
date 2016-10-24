@@ -23,10 +23,10 @@
       MP.api.segment('Page View', pageViewParams).done(function(data){
         debugger
         var $chart = $('.pageViewsGraph').appendTo('.pageViewsContainer').MPChart({
-          data: data
+          data: data.json
         })
         var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
-          data: data
+          data: data.json
         })
       })
       
