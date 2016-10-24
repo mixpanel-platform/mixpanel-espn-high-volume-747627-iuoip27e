@@ -20,9 +20,13 @@
         unit: "hour"
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
-        var $chart = $('.pageViewsChart').MPChart({chartType: 'line'})
-        console.log(data.json)
-        $chart.MPChart('setData', data)
+        var $chart = $('.pageViewsChart').MPChart({
+          highchartsOptions: {
+            dateFormat: '%h %d %R'
+          },
+          chartType: 'line',
+          data: data
+        })
         // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
         //   data: data.json
         // })
