@@ -7,10 +7,7 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageviewsContainer">
-       <div class="pageViewsGraph"></div>
-       <div class="pageViewsTable"></div>
-      
+    <div class="pageViewsContainer">
     </div>
     <div class="slotStoryPageviews">
       
@@ -25,10 +22,10 @@
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
         debugger
-        var $chart = $('.pageViewsGraph').MPChart({
+        var $chart = $('.pageViewsGraph').appendTo('.pageViewContainer').MPChart({
           data: data
         })
-        var $table = $('.pageViewsTable').MPTable({
+        var $table = $('.pageViewsTable').appendTo('.pageViewContainer').MPTable({
           data: data
         })
       })
