@@ -49,7 +49,7 @@
         var res = {}
         _.each(data.data.values, function(innerVals, outer){
           _.each(innerVals, function(dates, inner){
-            res[String(outer) + '/' + String(inner)] = dates
+            res["Slot " +String(outer) + '/Position ' + String(inner)] = dates
           })
         })
          var $chart = $('.slotViewsChart').MPChart({
