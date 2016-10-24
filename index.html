@@ -25,12 +25,12 @@
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
         debugger
-        var $chart = $('.pageViewsGraph').MPChart()
-        var $table = $('.pageViewsTable').MPTable()
-        $chart.MPChart('setData', data);
-        $table.MPTable('setData', data);
-        
-        // fill table
+        var $chart = $('.pageViewsGraph').MPChart({
+          data: data
+        })
+        var $table = $('.pageViewsTable').MPTable({
+          data: data
+        })
       })
       
       var multiSegParams = {
