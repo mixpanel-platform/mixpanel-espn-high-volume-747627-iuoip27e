@@ -22,6 +22,12 @@
       MP.api.segment('Page View', pageViewParams).done(function(data){
         var $chart = $('.pageViewsChart').MPChart({
           highchartsOptions: {
+              tooltip: {
+                  formatter: function () {
+                      return 'The value for <b>' + this.x +
+                          '</b> is <b>' + this.y + '</b>';
+                  }
+              },
             xAxis: {
               type: 'datetime',
               tickInterval: 36e5,
