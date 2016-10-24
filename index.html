@@ -20,10 +20,12 @@
         unit: "hour"
       }
       MP.api.segment('Page View', pageViewParams).done(function(data){
+        var months = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
         var $chart = $('.pageViewsChart').MPChart({
           highchartsOptions: {
               tooltip: {
                   formatter: function () {
+                    debugger
                       return 'The value for <b>' + this.x +
                           '</b> is <b>' + this.y + '</b>';
                   }
@@ -34,7 +36,10 @@
               labels: {
                 formatter: function () {
                     debugger
-                    return new Date(this.value).toISOString()
+                    var dateObj = new Date(this.value)
+                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                    return [mon, date, hour].join(' ')
+                    
                 }
               }
             },
