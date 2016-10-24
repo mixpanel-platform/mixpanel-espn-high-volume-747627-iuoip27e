@@ -26,7 +26,11 @@
               type: 'datetime',
               tickInterval: 36e5,
               labels: {
-                format: '{value:debugger}',
+                formatter: function () {
+                  debugger
+                    return '<a href="' + categoryLinks[this.value] + '">' +
+                        this.value + '</a>';
+                }
               }
             },
           },
