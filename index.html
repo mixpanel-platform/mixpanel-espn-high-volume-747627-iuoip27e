@@ -22,7 +22,7 @@
     }
     MP.api.segment('Page View', pageViewParams).done(function(data){
       debugger
-      var $chart = $('.pageViewsChart').MPChart()
+      var $chart = $('.pageViewsChart').MPChart({chartType: 'line'})
       console.log(data.json)
       $chart.MPChart('setData', data)
       // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
@@ -49,6 +49,7 @@
     $multiseg.done(function(data){
       debugger
        var $chart = $('.slotViewsChart').MPChart({
+        chartType: 'line',
         data: data.data
       })
       // var $table = $('.slotViewsTable').MPTable({
