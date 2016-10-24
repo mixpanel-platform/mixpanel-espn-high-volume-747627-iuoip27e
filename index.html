@@ -26,7 +26,7 @@
       MP.api.segment('Page View', pageViewParams).done(function(data){
         var $chart = $('.pageViewsGraph').MPChart()
         var $table = $('.pageViewsTable').MPTable()
-        $chart.MPTbale('setData', data);
+        $chart.MPChart('setData', data);
         $table.MPTable('setData', data);
         
         // fill table
