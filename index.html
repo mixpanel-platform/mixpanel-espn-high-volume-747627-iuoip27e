@@ -36,7 +36,7 @@
           event:"Page View",
           type:"unique",
           where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
-          limit:25
+          limit:25,
           inner:'properties["Referrer Position"]',
           outer:'properties["Referrer Slot"]',
           outer_modifier:'numeric',
@@ -44,7 +44,7 @@
           to_date:'2016-10-24',
           from_date:'2016-10-19',
           unit:'hour',
-          buckets:12
+          buckets:12,
           allow_more_buckets:false
       }
       var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
