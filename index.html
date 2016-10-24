@@ -25,8 +25,12 @@
             xAxis: {
               type: 'datetime',
               dateTimeLabelFormats: {
-                day: '%h %d %R'
+                	hour: '%H:%M',
+	                day: '%e. %b',
               },
+              units: [
+                ['hours', 1]
+              ]
             },
           },
           chartType: 'line',
