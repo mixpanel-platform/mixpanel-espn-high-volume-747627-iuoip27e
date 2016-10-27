@@ -120,8 +120,9 @@
         var tableData = {}
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
-            var series = "Slot " +String(outer) + '/Story ' + String(inner)
-            [graphData[series], tableData[series]] = filterData(dateObjs)
+            console.log("Slot " +String(outer) + '/Story ' + String(inner))
+            var seriesStr = "Slot " +String(outer) + '/Story ' + String(inner)
+            [graphData[seriesStr], tableData[seriesStr]] = filterData(dateObjs)
           })
         })
          var $chart = $('.slotStoryViewsChart').MPChart({
