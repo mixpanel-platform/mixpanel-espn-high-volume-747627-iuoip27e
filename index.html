@@ -172,6 +172,7 @@
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
             var series = "Slot " +String(outer) + '/Story ' + String(inner)
+            debugger
             var [graphData[series], tableData[series]] = filterData(dateObjs)
           })
         })
