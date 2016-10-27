@@ -16,6 +16,29 @@
     <script>
       // Use Data tables for better sorting/limiting etc
        /* slot page views */
+       
+       var highChartsConfig = {
+            tooltip: {
+                formatter: function () {
+                  var dateObj = new Date(this.x)
+                  var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                  var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
+                  return response
+                }
+            },
+            xAxis: {
+              type: 'datetime',
+              tickInterval: 36e5,
+              labels: {
+                formatter: function () {
+                    var dateObj = new Date(this.value)
+                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                    return [mon, date, hour].join(' ')
+                    
+                }
+              }
+            },
+          }
       
       var pageViewSlotParams = {
         where: 'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
@@ -50,28 +73,7 @@
           })
         })
         var $chart = $('.pageViewsSlotChart').MPChart({
-          highchartsOptions: {
-            tooltip: {
-                formatter: function () {
-                  var dateObj = new Date(this.x)
-                  var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                  var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
-                  return response
-                }
-            },
-            xAxis: {
-              type: 'datetime',
-              tickInterval: 36e5,
-              labels: {
-                formatter: function () {
-                    var dateObj = new Date(this.value)
-                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                    return [mon, date, hour].join(' ')
-                    
-                }
-              }
-            },
-          },
+          highchartsOptions: highChartsConfig,
           chartType: 'line',
           data: graphData
         })
@@ -177,28 +179,7 @@
           })
         })
          var $chart = $('.slotStoryViewsChart').MPChart({
-          highchartsOptions: {
-            tooltip: {
-                formatter: function () {
-                  var dateObj = new Date(this.x)
-                  var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                  var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
-                  return response
-                }
-            },
-            xAxis: {
-              type: 'datetime',
-              tickInterval: 36e5,
-              labels: {
-                formatter: function () {
-                    var dateObj = new Date(this.value)
-                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                    return [mon, date, hour].join(' ')
-                    
-                }
-              }
-            },
-          },
+          highchartsOptions: highChartsConfig,
           chartType: 'line',
           data: graphData
         })
@@ -207,7 +188,7 @@
         })
       });
       
-      varfilterData = function(dateObjs){
+      var filterData = function(dateObjs){
         var graphData = _.pick(dateObjs, function(v,date) { 
           if (new Date(date) > new Date() - (1000 * 60 * 60 * 8) && new Date(date) < new Date()){
             return true
