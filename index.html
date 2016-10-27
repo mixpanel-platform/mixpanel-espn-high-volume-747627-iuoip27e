@@ -74,7 +74,7 @@
           chartType: 'line',
           data: graphData
         })
-        var $table = $('.pageViewsIndexTable').appendTo('.pageViewsContainer').MPTable({
+        var $table = $('.pageViewsIndexTable').MPTable({
            data: tableData
          })
       })
@@ -98,13 +98,14 @@
       }
       var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
       $multiseg.done(function(data){
+        //wth
         var res = {}
         _.each(data.data.values, function(innerVals, outer){
           _.each(innerVals, function(dates, inner){
-            res["Slot " +String(outer) + '/Position ' + String(inner)] = dates
+            res["Slot " +String(outer) + '/Story ' + String(inner)] = dates
           })
         })
-         var $chart = $('.slotViewsChart').MPChart({
+         var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: {
             tooltip: {
                 formatter: function () {
