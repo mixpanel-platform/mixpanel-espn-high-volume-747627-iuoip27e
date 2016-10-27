@@ -7,12 +7,79 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
+    <div class="pageViewsSlotChart"></div>
+    <div class="pageViewsSlotTable"></div>
     <div class="pageViewsIndexChart"></div>
     <div class="pageViewsIndexTable"></div>
     <div class="slotStoryViewsChart"></div>
     <div class="slotStoryViewsTable"></div>
     <script>
-      //can i do this in one request per table graph combo?
+      // Use Data tables for better sorting/limiting etc
+       /* slot page views */
+      
+      var pageViewSlotParams = {
+        where: 'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
+        on: 'properties["Referrer Slot"]',
+        to_date: new Date().toISOString().split('T')[0],
+        from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+        unit: "hour"
+      }
+      
+      var $pastPageViewsSlot = MP.api.segment('Page View', pageViewSlotParams)
+      
+      $pastPageViewsSlot.done(function(data){
+        var graphData = {}
+        var tableData = {}
+        _.each(data.json, function(dateObjs, series ){
+          /* Seems redundant to do this twice? */
+          
+          graphData[series] = _.pick(dateObjs, function(v,date) { 
+            return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
+          })
+          tableData[series] = _.pick(dateObjs, function(v,date){
+            // test that we are this hour, yesterday same hour, or last week same hour
+            var hourString = new Date(date).toISOString().split(':')[0]
+            var currHour = new Date().toISOString().split(':')[0]
+            var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
+            var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
+            var res =
+                  hourString == currHour ||
+                  hourString == lastWeek ||
+                  hourString == lastDay
+            return res
+          })
+        })
+        var $chart = $('.pageViewsSlotChart').MPChart({
+          highchartsOptions: {
+            tooltip: {
+                formatter: function () {
+                  var dateObj = new Date(this.x)
+                  var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                  var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
+                  return response
+                }
+            },
+            xAxis: {
+              type: 'datetime',
+              tickInterval: 36e5,
+              labels: {
+                formatter: function () {
+                    var dateObj = new Date(this.value)
+                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
+                    return [mon, date, hour].join(' ')
+                    
+                }
+              }
+            },
+          },
+          chartType: 'line',
+          data: graphData
+        })
+        var $table = $('.pageViewsSlotTable').MPTable({
+           data: tableData
+         })
+      })
+      
       
       /* index page views */
       
@@ -106,7 +173,8 @@
             graphData[series] = _.pick(dateObjs, function(v,date) { 
               return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
             })  
-            
+            // not super useful needs to be condensed/ combine compared to average of slot 1 of last
+            // just access the three I need instead of checking (constant time vs N time)
             tableData[series] = _.pick(dateObjs, function(v,date){
               // test that we are this hour, yesterday same hour, or last week same hour
               var hourString = new Date(date).toISOString().split(':')[0]
