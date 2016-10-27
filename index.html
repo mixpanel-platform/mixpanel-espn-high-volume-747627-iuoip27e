@@ -147,7 +147,11 @@
         var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
         var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ') 
         var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
-        var tableData = [dateObjs[currHour], dateObjs[lastDay], dateObjs[lastWeek]]
+        var tableData = {
+          'Current Hour': dateObjs[currHour], 
+          '24 Hours Ago': dateObjs[lastDay], 
+          'Last Week': dateObjs[lastWeek]]
+        }
 
         return [graphData, tableData]
       }
