@@ -91,18 +91,34 @@
           outer_modifier:'numeric',
           inner_modifier:'numeric',
           to_date: new Date().toISOString().split('T')[0],
-          from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
+          from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
           unit:'hour',
           buckets:12,
           allow_more_buckets:false
       }
       var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
       $multiseg.done(function(data){
-        //wth
-        var res = {}
-        _.each(data.data.values, function(innerVals, outer){
-          _.each(innerVals, function(dates, inner){
-            res["Slot " +String(outer) + '/Story ' + String(inner)] = dates
+        var graphData = {}
+        var tableData = {}
+        _.each(data.data.values, function(innerVals, outer ){
+          _.each(innerVals, function(dateObjs, inner){
+            var series = "Slot " +String(outer) + '/Story ' + String(inner)
+            graphData[series] = _.pick(dateObjs, function(v,date) { 
+              return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
+            })  
+            
+            tableData[series] = _.pick(dateObjs, function(v,date){
+              // test that we are this hour, yesterday same hour, or last week same hour
+              var hourString = new Date(date).toISOString().split(':')[0]
+              var currHour = new Date().toISOString().split(':')[0]
+              var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
+              var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
+              var res =
+                    hourString == currHour ||
+                    hourString == lastWeek ||
+                    hourString == lastDay
+              return res
+            })
           })
         })
          var $chart = $('.slotStoryViewsChart').MPChart({
@@ -129,15 +145,12 @@
             },
           },
           chartType: 'line',
-          data: res
+          data: graphData
         })
-        // var $table = $('.slotViewsTable').MPTable({
-        //   data: data.data
-        // })
+        var $table = $('.slotStoryViewsTable').MPTable({
+          data: tableData
+        })
       });
-      //MP.api.jql
-      // Multiseg
-      //var HomePageViews = MP.api.query
     </script>
   </body>
 </html>
