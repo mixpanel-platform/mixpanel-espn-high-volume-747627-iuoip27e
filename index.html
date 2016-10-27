@@ -12,14 +12,33 @@
     <div class="slotViewsChart"></div>
     <div class="slotViewsTable"></div>
     <script>
-      var pageViewParams = {
+      //can i do this in one request per table graph combo?
+      
+      /* index page views */
+      var pageViewGraphParams = {
         where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
         on: 'properties["Referring Page"]',
         to_date: new Date().toISOString().split('T')[0],
         from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
         unit: "hour"
       }
-      MP.api.segment('Page View', pageViewParams).done(function(data){
+      
+      
+      var pageViewTableParams = {
+        where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
+        on: 'properties["Referring Page"]',
+        to_date: new Date().toISOString().split('T')[0],
+        from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+        unit: "hour"
+      }
+      
+      var $pastPageViewsGraph = MP.api.segment('Page View', pageViewGraphParams)
+      var $pastPageViewsTable = MP.api.segment('Page View', pageViewTableParams)
+      $pastPageViewsTable.done(function(data){
+        debugger
+      })
+      
+      $pastPageViewsGraph.done(function(data){
         var $chart = $('.pageViewsChart').MPChart({
           highchartsOptions: {
             tooltip: {
@@ -51,17 +70,19 @@
         // })
       })
       
+      
+      /* Slot by story */
       var multiSegParams = {
           event:"Page View",
           type:"unique",
           where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
           limit:25,
-          inner:'properties["Referrer Position"]',
+          inner:'properties["Story Headline"]',
           outer:'properties["Referrer Slot"]',
           outer_modifier:'numeric',
           inner_modifier:'numeric',
-          to_date:'2016-10-24',
-          from_date:'2016-10-19',
+          to_date: new Date().toISOString().split('T')[0],
+          from_date: new Date(new Date() - 60 * 60 * 1000 * 24).toISOString().split('T')[0],
           unit:'hour',
           buckets:12,
           allow_more_buckets:false
