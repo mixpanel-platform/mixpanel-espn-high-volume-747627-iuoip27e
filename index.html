@@ -7,10 +7,10 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageViewsChart"></div>
-    <div class="pageViewsTable"></div>
-    <div class="slotViewsChart"></div>
-    <div class="slotViewsTable"></div>
+    <div class="pageViewsIndexChart"></div>
+    <div class="pageViewsIndexTable"></div>
+    <div class="slotStoryViewsChart"></div>
+    <div class="slotStoryViewsTable"></div>
     <script>
       //can i do this in one request per table graph combo?
       
@@ -47,9 +47,8 @@
                   hourString == lastDay
             return res
           })
-          debugger
         })
-        var $chart = $('.pageViewsChart').MPChart({
+        var $chart = $('.pageViewsIndexChart').MPChart({
           highchartsOptions: {
             tooltip: {
                 formatter: function () {
@@ -75,9 +74,9 @@
           chartType: 'line',
           data: graphData
         })
-        // var $table = $('.pageViewsTable').appendTo('.pageViewsContainer').MPTable({
-        //   data: data.json
-        // })
+        var $table = $('.pageViewsIndexTable').appendTo('.pageViewsContainer').MPTable({
+           data: tableData
+         })
       })
       
       
