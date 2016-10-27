@@ -54,23 +54,7 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series ){
-          /* Seems redundant to do this twice? */
-          
-          graphData[series] = _.pick(dateObjs, function(v,date) { 
-            return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
-          })
-          tableData[series] = _.pick(dateObjs, function(v,date){
-            // test that we are this hour, yesterday same hour, or last week same hour
-            var hourString = new Date(date).toISOString().split(':')[0]
-            var currHour = new Date().toISOString().split(':')[0]
-            var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
-            var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
-            var res =
-                  hourString == currHour ||
-                  hourString == lastWeek ||
-                  hourString == lastDay
-            return res
-          })
+         [graphData[series], tableData[series]] = filterData(dateObjs)
         })
         var $chart = $('.pageViewsSlotChart').MPChart({
           highchartsOptions: highChartsConfig,
@@ -99,47 +83,10 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series ){
-          /* Seems redundant to do this twice? */
-          
-          graphData[series] = _.pick(dateObjs, function(v,date) { 
-            return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
-          })
-          tableData[series] = _.pick(dateObjs, function(v,date){
-            // test that we are this hour, yesterday same hour, or last week same hour
-            var hourString = new Date(date).toISOString().split(':')[0]
-            var currHour = new Date().toISOString().split(':')[0]
-            var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
-            var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
-            var res =
-                  hourString == currHour ||
-                  hourString == lastWeek ||
-                  hourString == lastDay
-            return res
-          })
+         [graphData[series], tableData[series]] = filterData(dateObjs)
         })
         var $chart = $('.pageViewsIndexChart').MPChart({
-          highchartsOptions: {
-            tooltip: {
-                formatter: function () {
-                  var dateObj = new Date(this.x)
-                  var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                  var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
-                  return response
-                }
-            },
-            xAxis: {
-              type: 'datetime',
-              tickInterval: 36e5,
-              labels: {
-                formatter: function () {
-                    var dateObj = new Date(this.value)
-                    var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                    return [mon, date, hour].join(' ')
-                    
-                }
-              }
-            },
-          },
+          highchartsOptions: highChartsConfig
           chartType: 'line',
           data: graphData
         })
@@ -174,7 +121,6 @@
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
             var series = "Slot " +String(outer) + '/Story ' + String(inner)
-            debugger
             [graphData[series], tableData[series]] = filterData(dateObjs)
           })
         })
@@ -196,6 +142,7 @@
         })  
         // not super useful needs to be condensed/ combine compared to average of slot 1 of last
         // just access the three I need instead of checking (constant time vs N time)
+        debugger
         var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':')
         var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':') 
         var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(':')
