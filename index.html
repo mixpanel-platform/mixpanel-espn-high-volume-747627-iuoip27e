@@ -41,10 +41,11 @@
             var currHour = new Date().toISOString().split(':')[0]
             var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
             var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
-            return 
+            var res =
                   hourString == currHour ||
                   hourString == lastWeek ||
                   hourString == lastDay
+            return res
           })
           debugger
         })
