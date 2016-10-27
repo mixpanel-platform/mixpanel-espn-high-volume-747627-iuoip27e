@@ -144,9 +144,9 @@
         // not super useful needs to be condensed/ combine compared to average of slot 1 of last
         // just access the three I need instead of checking (constant time vs N time)
         debugger
-        var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':')
-        var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':') 
-        var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(':')
+        var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
+        var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ') 
+        var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
         var tableData = [dateObjs[currHour], dateObjs[lastDay], dateObjs[lastWeek]]
 
         return [graphData, tableData]
