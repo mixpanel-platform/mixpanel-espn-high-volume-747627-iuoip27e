@@ -16,7 +16,7 @@
       
       /* index page views */
       
-      var pageViewIndex = {
+      var pageViewIndexParams = {
         where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
         on: 'properties["Referring Page"]',
         to_date: new Date().toISOString().split('T')[0],
@@ -24,7 +24,7 @@
         unit: "hour"
       }
       
-      var $pastPageViewsIndexData = MP.api.segment('Page View', pageViewGraphParams)
+      var $pastPageViewsIndexData = MP.api.segment('Page View', pageViewIndexParams)
       
       $pastPageViewsIndexData.done(function(data){
         var graphData = {}
