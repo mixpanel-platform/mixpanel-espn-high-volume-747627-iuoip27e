@@ -39,8 +39,8 @@
             // test that we are this hour, yesterday same hour, or last week same hour
             var hourString = new Date(date).toISOString().split(':') 
             var currHour = new Date().toISOString.split(':')
-            var lastDay = new Date((new Date() - 1000 * 60 * 60 * 24).toISOString.split(':') 
-            var lastWeek = new Date((new Date() - 1000 * 60 * 60 * 24 * 7).toISOString.split(':') 
+            var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString.split(':') 
+            var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString.split(':') 
             return 
                   hourString == currHour ||
                   hourString == lastWeek ||
