@@ -173,7 +173,7 @@
           _.each(innerVals, function(dateObjs, inner){
             var series = "Slot " +String(outer) + '/Story ' + String(inner)
             debugger
-            var [graphData[series], tableData[series]] = filterData(dateObjs)
+            [graphData[series], tableData[series]] = filterData(dateObjs)
           })
         })
          var $chart = $('.slotStoryViewsChart').MPChart({
