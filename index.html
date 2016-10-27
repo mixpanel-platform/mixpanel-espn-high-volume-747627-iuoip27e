@@ -163,6 +163,8 @@
           buckets:12,
           allow_more_buckets:false
       }
+      
+      // can i make the three request for today, 24hr ago, and last week
       var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
       $multiseg.done(function(data){
         var graphData = {}
@@ -170,23 +172,7 @@
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
             var series = "Slot " +String(outer) + '/Story ' + String(inner)
-            graphData[series] = _.pick(dateObjs, function(v,date) { 
-              return new Date(date) > new Date() - (1000 * 60 * 60 * 8)
-            })  
-            // not super useful needs to be condensed/ combine compared to average of slot 1 of last
-            // just access the three I need instead of checking (constant time vs N time)
-            tableData[series] = _.pick(dateObjs, function(v,date){
-              // test that we are this hour, yesterday same hour, or last week same hour
-              var hourString = new Date(date).toISOString().split(':')[0]
-              var currHour = new Date().toISOString().split(':')[0]
-              var lastDay = new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0] 
-              var lastWeek = new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0]
-              var res =
-                    hourString == currHour ||
-                    hourString == lastWeek ||
-                    hourString == lastDay
-              return res
-            })
+            var [graphData[series], tableData[series]] = filterData(dateObjs)
           })
         })
          var $chart = $('.slotStoryViewsChart').MPChart({
@@ -219,6 +205,22 @@
           data: tableData
         })
       });
+      
+      varfilterData = function(dateObjs){
+        var graphData = _.pick(dateObjs, function(v,date) { 
+          if (new Date(date) > new Date() - (1000 * 60 * 60 * 8) && new Date(date) < new Date()){
+            return true
+          }
+        })  
+        // not super useful needs to be condensed/ combine compared to average of slot 1 of last
+        // just access the three I need instead of checking (constant time vs N time)
+        var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':')
+        var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':') 
+        var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(
+        var tableData = [dateObjs[currHour], dateObjs[lastDay], dateObjs[lastWeek]]
+
+        return [graphData, tableData]
+      }
     </script>
   </body>
 </html>
