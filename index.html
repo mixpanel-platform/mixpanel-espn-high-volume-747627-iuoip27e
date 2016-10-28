@@ -212,7 +212,7 @@
           // [graphData[series], tableData[series]] = filterData(obj.val)
           
           // but this works but still looks super disgusting
-          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.val)
+          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.value)
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
