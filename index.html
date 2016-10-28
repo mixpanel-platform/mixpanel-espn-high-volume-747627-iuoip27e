@@ -154,7 +154,6 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series ){
-          debugger
          [graphData[series], tableData[series]] = filterData(dateObjs)
         })
         var $chart = $('.pageViewsIndexChart').MPChart({
@@ -206,7 +205,7 @@
       // $multiseg.done(function(data){
         var graphData = {}
         var tableData = {}
-        
+        debugger
         _.each(data, function(obj){
           var seriesStr = ["Slot", String(obj.slot),'/Position',String(obj.position), '/Story', String(obj.story)].join(' ')
           [graphData[seriesStr], tableData[seriesStr]] = filterData(obj.val)
