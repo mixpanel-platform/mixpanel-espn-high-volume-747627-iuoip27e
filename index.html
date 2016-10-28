@@ -142,17 +142,16 @@
       $multiseg.done(function(data){
         var graphData = {}
         var tableData = {}
-        debugger
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
-                    debugger
-
+            debugger
             console.log("Slot " +String(outer) + '/Story ' + String(inner))
-            var seriesStr = ["Slot", String(outer),'/Story',String(inner)].join(' ')
+            var foo
+            var bar = ["Slot", String(outer),'/Story',String(inner)].join(' ')
             [graphData[seriesStr], tableData[seriesStr]] = filterData(dateObjs)
           })
         })
-         var $chart = $('.slotStoryViewsChart').MPChart({
+          var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
           chartType: 'line',
           data: graphData
