@@ -114,7 +114,7 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series){
-         [graphData[series], tableData[series]] = filterData(dateObjs)
+         [graphData[series], tableData[series]] = filterData(dateObjs, ' ')
         })
         var $chart = $('.pageViewsSlotChart').MPChart({
           highchartsOptions: highChartsConfig,
@@ -154,7 +154,7 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series ){
-         [graphData[series], tableData[series]] = filterData(dateObjs)
+         [graphData[series], tableData[series]] = filterData(dateObjs, ' ')
         })
         var $chart = $('.pageViewsIndexChart').MPChart({
           highchartsOptions: highChartsConfig,
@@ -207,7 +207,7 @@
         var series
         debugger
         _.each(data, function(obj){
-          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.value)
+          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.value, 'T')
           
           // but this works but still looks super disgusting
           // [graphData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value)
@@ -237,18 +237,18 @@
       table.draw();
       });
       
-      var filterData = function(dateObjs){
+      var filterData = function(dateObjs, seperator){
         var graphData = _.pick(dateObjs, function(v,date) { 
           if (new Date(date) > new Date() - (1000 * 60 * 60 * 8) && new Date(date) < new Date()){
             return true
           }
         })  
         var dateObj = new Date()
-        var currHour = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + dateObj.getHours() + ':00:00'
+        var currHour = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + seperator + dateObj.getHours() + ':00:00'
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
-        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + ' ' + lastDateObj.getHours() + ':00:00'
+        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + seperator + lastDateObj.getHours() + ':00:00'
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
-        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + ' ' + lastWkObj.getHours() + ':00:00'
+        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + seperator + lastWkObj.getHours() + ':00:00'
         var tableData = {
           'Current Hour': dateObjs[currHour], 
           '24 Hours Ago': dateObjs[lastDay], 
