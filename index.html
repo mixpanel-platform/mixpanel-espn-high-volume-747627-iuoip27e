@@ -202,14 +202,18 @@
       MP.api.jql(query,jqlParams).done(function(data){
       // can i make the three request for today, 24hr ago, and last week
       // var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
-      // $multiseg.done(function(data){
         var graphData = {}
         var tableData = {}
         var series
         debugger
         _.each(data, function(obj){
-          series = ["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')
-          [graphData[series], tableData[series]] = filterData(obj.val)
+          // this is buggy
+          // series = ["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')
+          // [graphData[series], tableData[series]] = filterData(obj.val)
+          
+          // but this is not but still looks super disgusting
+          [graphData["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')], 
+          tableData["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')]] = filterData(obj.val)
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
