@@ -148,7 +148,8 @@
             console.log("Slot " +String(outer) + '/Story ' + String(inner))
             var foo
             var bar = ["Slot", String(outer),'/Story',String(inner)].join(' ')
-            [graphData[seriesStr], tableData[seriesStr]] = filterData(dateObjs)
+            var series = "Slot " +String(outer) + '/Story ' + String(inner)
+            [graphData[series], tableData[series]] = filterData(dateObjs)
           })
         })
           var $chart = $('.slotStoryViewsChart').MPChart({
