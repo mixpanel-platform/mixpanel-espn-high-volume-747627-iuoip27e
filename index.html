@@ -93,7 +93,7 @@
           data: graphData
         })
         debugger
-        var table = $('.pageViewsIndexTable').DataTable( {
+        $('.pageViewsIndexTable').DataTable( {
             columns: [
                 { title: 'Index', data: 'name' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
@@ -101,7 +101,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-        var table.clear()
+        var table = $('#table').DataTable().clear()
         _.each(tableData, function(vals, index){
           var row = _.extend({'Index': index}, vals)
           table.row.add(row)
