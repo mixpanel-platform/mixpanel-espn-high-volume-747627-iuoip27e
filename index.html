@@ -207,7 +207,7 @@
         var tableData = {}
         debugger
         _.each(data, function(obj){
-          var seriesStr = ["Slot", String(obj.slot),'/Position',String(obj.position), '/Story', String(obj.story)].join(' ')
+          var seriesStr = ["Slot", String(obj.slot),"/Position",String(obj.position), "/Story", String(obj.story)].join(' ')
           [graphData[seriesStr], tableData[seriesStr]] = filterData(obj.val)
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
