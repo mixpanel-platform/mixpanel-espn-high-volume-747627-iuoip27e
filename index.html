@@ -123,7 +123,7 @@
         })
         $('.pageViewsSlotTable').DataTable( {
             columns: [
-                { title: 'Slot', data: 'name' },
+                { title: 'Slot', data: 'slot' },
                 { title: 'Current Hour', data: 'Current Hour' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Last Week', data: 'Last Week' },
@@ -212,7 +212,8 @@
           // [graphData[series], tableData[series]] = filterData(obj.val)
           
           // but this works but still looks super disgusting
-          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.value)
+          var Str = "Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)
+          [graphData[Str], tableData[Str]] = filterData(obj.value)
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
@@ -221,7 +222,9 @@
         })
         $('.slotStoryViewsTable').DataTable( {
             columns: [
-                { title: 'Slot Story', data: 'name' },
+                { title: 'Slot Story', data: 'slot' },
+                { title: 'Position', data: 'position'},
+                { title: 'Title', data: 'title'}
                 { title: 'Current Hour', data: 'Current Hour' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Last Week', data: 'Last Week' },
@@ -229,7 +232,8 @@
         });
         var table = $('.slotStoryViewsTable').DataTable().clear()
         _.each(tableData, function(vals, index){
-          var row = _.extend({'name': index}, vals)
+          // split this to slot, position title
+          var row = _.extend({'slot': index}, vals)
           table.row.add(row)
         })
       table.draw();
