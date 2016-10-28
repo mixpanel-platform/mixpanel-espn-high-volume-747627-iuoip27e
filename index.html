@@ -10,11 +10,11 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="pageViewsSlotChart"></div>
-    <div class="pageViewsSlotTable"></div>
+    <table id="table" class="display pageViewsSlotTable" width="100%"></table>
     <div class="pageViewsIndexChart"></div>
     <table id="table" class="display pageViewsIndexTable" width="100%"></table>
     <div class="slotStoryViewsChart"></div>
-    <div class="slotStoryViewsTable"></div>
+    <table id="table" class="display slotStoryViewsTable" width="100%"></table>
     <script>
       // Use Data tables for better sorting/limiting etc
        /* slot page views */
@@ -63,9 +63,20 @@
           chartType: 'line',
           data: graphData
         })
-        var $table = $('.pageViewsSlotTable').MPTable({
-           data: tableData
-         })
+        $('.pageViewsSlotTable').DataTable( {
+            columns: [
+                { title: 'Slot', data: 'name' },
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: 'Last Week', data: 'Last Week' },
+            ]
+        });
+        var table = $('#table').DataTable().clear()
+        _.each(tableData, function(vals, slot){
+          var row = _.extend({'name': slot}, vals)
+          table.row.add(row)
+        })
+       table.draw();
       })
       
       
@@ -96,8 +107,8 @@
         $('.pageViewsIndexTable').DataTable( {
             columns: [
                 { title: 'Index', data: 'name' },
-                { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Current Hour', data: 'Current Hour' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
@@ -107,9 +118,6 @@
           table.row.add(row)
         })
        table.draw();
-        // var $table = $('.pageViewsIndexTable').MPTable({
-        //   data: tableData
-        // })
       })
       
       
@@ -147,9 +155,20 @@
           chartType: 'line',
           data: graphData
         })
-        var $table = $('.slotStoryViewsTable').MPTable({
-          data: tableData
+         $('.slotStoryViewsTable').DataTable( {
+            columns: [
+                { title: 'Slot Story', data: 'name' },
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: 'Last Week', data: 'Last Week' },
+            ]
+        });
+        var table = $('#table').DataTable().clear()
+        _.each(tableData, function(vals, index){
+          var row = _.extend({'name': index}, vals)
+          table.row.add(row)
         })
+       table.draw();
       });
       
       var filterData = function(dateObjs){
