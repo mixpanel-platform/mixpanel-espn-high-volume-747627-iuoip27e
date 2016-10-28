@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
     <div class="pageViewsSlotChart"></div>
@@ -90,9 +92,21 @@
           chartType: 'line',
           data: graphData
         })
-        var $table = $('.pageViewsIndexTable').MPTable({
-           data: tableData
-         })
+        debugger
+        $('.pageViewsIndexTable').DataTable( {
+            data: tableData
+            columns: [
+                { data: 'name' },
+                { data: 'position' },
+                { data: 'salary' },
+                { data: 'state_date' },
+                { data: 'office' },
+                { data: 'extn' }
+            ]
+        });
+        // var $table = $('.pageViewsIndexTable').MPTable({
+        //   data: tableData
+        // })
       })
       
       
