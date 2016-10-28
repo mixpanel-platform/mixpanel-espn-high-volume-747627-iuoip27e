@@ -103,7 +103,7 @@
         });
         var table = $('#table').DataTable().clear()
         _.each(tableData, function(vals, index){
-          var row = _.extend({'Index': index}, vals)
+          var row = _.extend({'name': index}, vals)
           table.row.add(row)
         })
        table.draw();
