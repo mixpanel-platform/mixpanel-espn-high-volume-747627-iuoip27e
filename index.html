@@ -154,6 +154,7 @@
         var graphData = {}
         var tableData = {}
         _.each(data.json, function(dateObjs, series ){
+          debugger
          [graphData[series], tableData[series]] = filterData(dateObjs)
         })
         var $chart = $('.pageViewsIndexChart').MPChart({
