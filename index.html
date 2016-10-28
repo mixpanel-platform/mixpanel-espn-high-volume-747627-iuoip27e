@@ -208,10 +208,9 @@
         
         _.each(data, function(objs){
           var seriesStr = ["Slot", String(obj.slot),'/Position',String(obj.position), '/Story', String(obj.story)].join(' ')
-            [graphData[seriesStr], tableData[seriesStr]] = filterData(objs.val)
-          })
+          [graphData[seriesStr], tableData[seriesStr]] = filterData(objs.val)
         })
-          var $chart = $('.slotStoryViewsChart').MPChart({
+        var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
           chartType: 'line',
           data: graphData
