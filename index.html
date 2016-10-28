@@ -178,7 +178,6 @@
         })  
         // not super useful needs to be condensed/ combine compared to average of slot 1 of last
         // just access the three I need instead of checking (constant time vs N time)
-        debugger
         var dateObj = new Date()
         var currHour = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + dateObj.getHours() + ':00:00'
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
