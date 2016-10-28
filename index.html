@@ -123,7 +123,7 @@
         })
         $('.pageViewsSlotTable').DataTable( {
             columns: [
-                { title: 'Slot', data: 'slot' },
+                { title: 'Slot', data: 'name' },
                 { title: 'Current Hour', data: 'Current Hour' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Last Week', data: 'Last Week' },
@@ -244,13 +244,14 @@
           }
         })  
         var dateObj = new Date()
-        var currHour = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + seperator + dateObj.getHours() + ':00:00'
+        var currHour = seperator + dateObj.getHours() + ':00:00'
+        var currDay = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + currHour
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
-        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + seperator + lastDateObj.getHours() + ':00:00'
+        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
-        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + seperator + lastWkObj.getHours() + ':00:00'
+        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + currHour
         var tableData = {
-          'Current Hour': dateObjs[currHour], 
+          'Current Hour': dateObjs[currDay], 
           '24 Hours Ago': dateObjs[lastDay], 
           'Last Week': dateObjs[lastWeek]
         }
