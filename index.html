@@ -179,9 +179,12 @@
         // not super useful needs to be condensed/ combine compared to average of slot 1 of last
         // just access the three I need instead of checking (constant time vs N time)
         debugger
-        var currHour = [new Date().toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
-        var lastDay = [new Date(new Date() - (1000 * 60 * 60 * 24)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ') 
-        var lastWeek = [new Date(new Date() - (1000 * 60 * 60 * 24 * 7)).toISOString().split(':')[0],'00','00'].join(':').replace('T', ' ')
+        var dateObj = new Date(date)
+        var currHour = dateObj.getFullYear() + '-' + dateObj.getMonth() + '-' + dateObj.getDate() + ' ' + dateObj.getHours() + ':00:00'
+        var lastDateObj = new Date(new Date(date) - (1000 * 60 * 60 * 24))
+        var lastDay = lastDateObj.getFullYear() + '-' + lastDateObj.getMonth() + '-' + lastDateObj.getDate() + ' ' + lastDateObj.getHours() + ':00:00'
+        var lastWkObj = new Date(new Date(date) - (1000 * 60 * 60 * 24 * 7))
+        var lastWeek = lastWkObj.getFullYear() + '-' + lastWkObj.getMonth() + '-' + lastWkObj.getDate() + ' ' + lastWkObj.getHours() + ':00:00'
         var tableData = {
           'Current Hour': dateObjs[currHour], 
           '24 Hours Ago': dateObjs[lastDay], 
