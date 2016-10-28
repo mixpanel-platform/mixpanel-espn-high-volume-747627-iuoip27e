@@ -208,7 +208,7 @@
         debugger
         _.each(data, function(obj){
           // this is buggy
-          series = ["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')
+          series = "Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)
           [graphData[series], tableData[series]] = filterData(obj.value)
           
           // but this works but still looks super disgusting
