@@ -198,7 +198,7 @@
         to: new Date().toISOString().split('T')[0],
         from: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
       }
-      var query = $('.multiseg').html()
+      var query = $('#multiseg').html()
       MP.api.jql(query,jqlParams).done(function(data){debugger})
       // can i make the three request for today, 24hr ago, and last week
       // var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
