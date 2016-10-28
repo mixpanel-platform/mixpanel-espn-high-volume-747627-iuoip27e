@@ -112,7 +112,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-        var table = $('#table').DataTable().clear()
+        var table = $('.pageViewsIndexTable').DataTable().clear()
         _.each(tableData, function(vals, index){
           var row = _.extend({'name': index}, vals)
           table.row.add(row)
