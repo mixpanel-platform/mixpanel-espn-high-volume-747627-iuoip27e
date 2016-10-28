@@ -211,7 +211,7 @@
           // series = ["Slot ", String(obj.slot),":Position ",String(obj.position), ":Story ", String(obj.story)].join('')
           // [graphData[series], tableData[series]] = filterData(obj.val)
           
-          // but this is not but still looks super disgusting
+          // but this works but still looks super disgusting
           [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.val)
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
