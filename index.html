@@ -142,6 +142,7 @@
       $multiseg.done(function(data){
         var graphData = {}
         var tableData = {}
+        debugger
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
             console.log("Slot " +String(outer) + '/Story ' + String(inner))
