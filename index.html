@@ -93,17 +93,20 @@
           data: graphData
         })
         debugger
-        $('.pageViewsIndexTable').DataTable( {
-            data: tableData,
+        var table = $('.pageViewsIndexTable').DataTable( {
             columns: [
-                { data: 'name' },
-                { data: 'position' },
-                { data: 'salary' },
-                { data: 'state_date' },
-                { data: 'office' },
-                { data: 'extn' }
+                { title: 'Index' data: 'name' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'}
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: 'Last Week', data: 'Last Week' },
             ]
         });
+        var table.clear()
+        _.each(tableData, function(vals, index){
+          var row = _.extend({'Index': index}, vals)
+          table.row.add(row)
+        })
+       table.draw();
         // var $table = $('.pageViewsIndexTable').MPTable({
         //   data: tableData
         // })
