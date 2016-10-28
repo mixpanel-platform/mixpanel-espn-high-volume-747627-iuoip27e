@@ -107,13 +107,14 @@
         $('.pageViewsIndexTable').DataTable( {
             columns: [
                 { title: 'Index', data: 'name' },
-                { title: 'Current Hour', data: 'Current Hour' },
+                { title: 'Current Hour', data: 'Current Hour'},
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
         var table = $('.pageViewsIndexTable').DataTable().clear()
         _.each(tableData, function(vals, index){
+          debugger
           var row = _.extend({'name': index}, vals)
           table.row.add(row)
         })
