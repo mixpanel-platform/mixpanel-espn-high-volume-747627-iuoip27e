@@ -180,11 +180,11 @@
         // just access the three I need instead of checking (constant time vs N time)
         debugger
         var dateObj = new Date()
-        var currHour = dateObj.getFullYear() + '-' + dateObj.getMonth() + '-' + dateObj.getDate() + ' ' + dateObj.getHours() + ':00:00'
+        var currHour = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + dateObj.getHours() + ':00:00'
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
-        var lastDay = lastDateObj.getFullYear() + '-' + lastDateObj.getMonth() + '-' + lastDateObj.getDate() + ' ' + lastDateObj.getHours() + ':00:00'
+        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + ' ' + lastDateObj.getHours() + ':00:00'
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
-        var lastWeek = lastWkObj.getFullYear() + '-' + lastWkObj.getMonth() + '-' + lastWkObj.getDate() + ' ' + lastWkObj.getHours() + ':00:00'
+        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + ' ' + lastWkObj.getHours() + ':00:00'
         var tableData = {
           'Current Hour': dateObjs[currHour], 
           '24 Hours Ago': dateObjs[lastDay], 
