@@ -71,7 +71,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-        var table = $('#table').DataTable().clear()
+        var table = $('.pageViewsSlotTable').DataTable().clear()
         _.each(tableData, function(vals, slot){
           var row = _.extend({'name': slot}, vals)
           table.row.add(row)
@@ -163,7 +163,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-        var table = $('#table').DataTable().clear()
+        var table = $('.slotStoryViewsTable').DataTable().clear()
         _.each(tableData, function(vals, index){
           var row = _.extend({'name': index}, vals)
           table.row.add(row)
