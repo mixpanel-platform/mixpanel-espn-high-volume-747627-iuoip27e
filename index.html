@@ -199,37 +199,38 @@
         from: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
       }
       var query = $('#multiseg').html()
-      MP.api.jql(query,jqlParams).done(function(data){debugger})
+      MP.api.jql(query,jqlParams).done(function(data){
       // can i make the three request for today, 24hr ago, and last week
       // var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
       // $multiseg.done(function(data){
-      //   var graphData = {}
-      //   var tableData = {}
-      //   _.each(data.data.values, function(innerVals, outer ){
-      //     _.each(innerVals, function(dateObjs, inner){
-      //       [graphData[["Slot", String(outer),'/Story',String(inner)].join(' ')], tableData[["Slot", String(outer),'/Story',String(inner)].join(' ')]] = filterData(dateObjs)
-      //     })
-      //   })
-      //     var $chart = $('.slotStoryViewsChart').MPChart({
-      //     highchartsOptions: highChartsConfig,
-      //     chartType: 'line',
-      //     data: graphData
-      //   })
-      //   $('.slotStoryViewsTable').DataTable( {
-      //       columns: [
-      //           { title: 'Slot Story', data: 'name' },
-      //           { title: 'Current Hour', data: 'Current Hour' },
-      //           { title: '24 Hours Ago', data: '24 Hours Ago'},
-      //           { title: 'Last Week', data: 'Last Week' },
-      //       ]
-      //   });
-      //   var table = $('.slotStoryViewsTable').DataTable().clear()
-      //   _.each(tableData, function(vals, index){
-      //     var row = _.extend({'name': index}, vals)
-      //     table.row.add(row)
-      //   })
-      // table.draw();
-      // });
+        var graphData = {}
+        var tableData = {}
+        
+        _.each(data, function(objs){
+          var seriesStr = ["Slot", String(obj.slot),'/Position',String(obj.position), '/Story', String(obj.story)].join(' ')
+            [graphData[seriesStr], tableData[seriesStr]] = filterData(objs.val)
+          })
+        })
+          var $chart = $('.slotStoryViewsChart').MPChart({
+          highchartsOptions: highChartsConfig,
+          chartType: 'line',
+          data: graphData
+        })
+        $('.slotStoryViewsTable').DataTable( {
+            columns: [
+                { title: 'Slot Story', data: 'name' },
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: 'Last Week', data: 'Last Week' },
+            ]
+        });
+        var table = $('.slotStoryViewsTable').DataTable().clear()
+        _.each(tableData, function(vals, index){
+          var row = _.extend({'name': index}, vals)
+          table.row.add(row)
+        })
+      table.draw();
+      });
       
       var filterData = function(dateObjs){
         var graphData = _.pick(dateObjs, function(v,date) { 
