@@ -204,13 +204,9 @@
       // var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
         var graphData = {}
         var tableData = {}
-        var series
-        debugger
         _.each(data, function(obj){
-          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)]] = filterData(obj.value, 'T')
-          
-          // but this works but still looks super disgusting
-          // [graphData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value)
+          debugger
+          [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value, 'T')
         })
         var $chart = $('.slotStoryViewsChart').MPChart({
           highchartsOptions: highChartsConfig,
@@ -231,7 +227,8 @@
         _.each(tableData, function(vals, index){
           // split this to slot, position title
           debugger
-          var row = _.extend({'slot': index}, vals)
+          var [slot, position, title] = index.split('~')
+          var row = _.extend({'slot': slot, 'position':position, 'title':title}, vals)
           table.row.add(row)
         })
       table.draw();
