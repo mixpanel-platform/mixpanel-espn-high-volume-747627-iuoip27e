@@ -233,6 +233,7 @@
         var table = $('.slotStoryViewsTable').DataTable().clear()
         _.each(tableData, function(vals, index){
           // split this to slot, position title
+          debugger
           var row = _.extend({'slot': index}, vals)
           table.row.add(row)
         })
