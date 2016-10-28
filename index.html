@@ -145,6 +145,8 @@
         debugger
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
+                    debugger
+
             console.log("Slot " +String(outer) + '/Story ' + String(inner))
             var seriesStr = ["Slot", String(outer),'/Story',String(inner)].join(' ')
             [graphData[seriesStr], tableData[seriesStr]] = filterData(dateObjs)
