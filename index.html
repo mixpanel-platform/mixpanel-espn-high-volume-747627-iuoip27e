@@ -144,12 +144,7 @@
         var tableData = {}
         _.each(data.data.values, function(innerVals, outer ){
           _.each(innerVals, function(dateObjs, inner){
-            debugger
-            console.log("Slot " +String(outer) + '/Story ' + String(inner))
-            var foo
-            var bar = ["Slot", String(outer),'/Story',String(inner)].join(' ')
-            var series = "Slot " +String(outer) + '/Story ' + String(inner)
-            [graphData[series], tableData[series]] = filterData(dateObjs)
+            [graphData[["Slot", String(outer),'/Story',String(inner)].join(' ')], tableData[["Slot", String(outer),'/Story',String(inner)].join(' ')]] = filterData(dateObjs)
           })
         })
           var $chart = $('.slotStoryViewsChart').MPChart({
