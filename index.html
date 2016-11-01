@@ -140,7 +140,9 @@
             columns: [
                 { title: 'Slot', data: 'name' },
                 { title: 'Current Hour', data: 'Current Hour' },
+                { title: '% Change over Yesterday', data: 'Percent Day over Day' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: '% Change over Last Week', data: 'Percent Last Week' },
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
@@ -180,8 +182,10 @@
         $('.pageViewsIndexTable').DataTable( {
             columns: [
                 { title: 'Index', data: 'name' },
-                { title: 'Current Hour', data: 'Current Hour'},
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '% Change over Yesterday', data: 'Percent Day over Day' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: '% Change over Last Week', data: 'Percent Last Week' },
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
@@ -235,7 +239,9 @@
                 { title: 'Position', data: 'position'},
                 { title: 'Title', data: 'title'},
                 { title: 'Current Hour', data: 'Current Hour' },
+                { title: '% Change over Yesterday', data: 'Percent Day over Day' },
                 { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: '% Change over Last Week', data: 'Percent Last Week' },
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
@@ -267,15 +273,28 @@
         var lastDay = lastDateObj.getFullYear() + '-' + pad((lastDateObj.getMonth() + 1),2) + '-' + pad(lastDateObj.getDate(),2) + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
         var lastWeek = lastWkObj.getFullYear() + '-' + pad((lastWkObj.getMonth() + 1),2) + '-' + pad(lastWkObj.getDate(),2) + currHour
+        
+        var percentYesterday = (zeroTest(dateObjs[currDay], dateObjs[lastDay]) * 100 - 100) || 0
+        var percentLastWeek = (zeroTest(dateObjs[currDay], dateObjs[lastWeek]) * 100 - 100) || 0
+        
         var tableData = {
-          'Current Hour': dateObjs[currDay] || 0, 
+          'Current Hour': dateObjs[currDay] || 0,
+          'Percent Day over Day': percentYesterday,
           '24 Hours Ago': dateObjs[lastDay] || 0, 
+          'Percent Last Week': percentLastWeek
           'Last Week': dateObjs[lastWeek] || 0
         }
         return [graphData, tableData]
       }
       
       function pad(num, size){ return ('000000000' + num).substr(-size)};
+      function zeroTest(num, denom){ 
+        if (denom == 0) {
+          return num 
+        } else {
+          return num / denom
+        }
+        })
     </script>
   </body>
 </html>
