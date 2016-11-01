@@ -223,6 +223,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
+        /*
         var table = $('.slotStoryViewsTable').DataTable().clear()
         _.each(tableData, function(vals, index){
           // split this to slot, position title
@@ -230,6 +231,7 @@
           var [slot, position, title] = index.split('~')
           var row = _.extend({'slot': slot, 'position':position, 'title':title}, vals)
           table.row.add(row)
+          */
         })
       table.draw();
       });
