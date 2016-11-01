@@ -274,7 +274,7 @@
         
         var percentYesterday = percent(dateObjs[currDay], dateObjs[lastDay])
         var percentLastWeek = percent(dateObjs[currDay], dateObjs[lastWeek])
-        if (percentLastWeek != percentLastWeek) debugger
+        if (percentLastWeek !== percentLastWeek) debugger
         var tableData = {
           'Current Hour': dateObjs[currDay] || 0,
           'Percent Day over Day': percentYesterday,
