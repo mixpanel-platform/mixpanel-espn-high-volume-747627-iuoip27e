@@ -92,7 +92,7 @@
       // Use Data tables for better sorting/limiting etc
        /* slot page views */
        
-      $('.pageViewsSlotTable').DataTable( {
+      var $pageViewsSlotTable = $('.pageViewsSlotTable').DataTable( {
             columns: [
                 { title: 'Slot', data: 'name' },
                 { title: 'Current Hour', data: 'Current Hour' },
@@ -103,7 +103,7 @@
             ]
         });
         
-      $('.pageViewsIndexTable').DataTable( {
+      var $pageViewsIndexTable = $('.pageViewsIndexTable').DataTable( {
             columns: [
                 { title: 'Index', data: 'name' },
                 { title: 'Current Hour', data: 'Current Hour' },
@@ -113,7 +113,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-      $('.slotStoryViewsTable').DataTable( {
+      var slotStoryViewsTable = $('.slotStoryViewsTable').DataTable( {
         columns: [
             { title: 'Slot Story', data: 'slot' },
             { title: 'Position', data: 'position'},
@@ -163,6 +163,7 @@
         $pastPageViewsSlot.done(function(data){
           var graphData = {}
           var tableData = {}
+          debugger
           _.each(data.json, function(dateObjs, series){
            [graphData[series], tableData[series]] = filterData(dateObjs, ' ')
           })
@@ -172,13 +173,13 @@
             data: graphData
           })
           
-          var table = $('.pageViewsSlotTable').DataTable().clear()
-          debugger
+          $pageViewsSlotTable.clear()
+          
           _.each(tableData, function(vals, slot){
             var row = _.extend({'name': slot}, vals)
-            table.row.add(row)
+            $pageViewsSlotTable.row.add(row)
           })
-         table.draw();
+         $pageViewsSlotTable.draw();
          $('.pageViewsSlotHeader').css({'display': ''})
         })
         
