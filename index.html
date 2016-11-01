@@ -184,86 +184,85 @@
         })
         
         
-        // /* index page views */
+        /* index page views */
         
-        // var pageViewIndexParams = {
-        //   where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
-        //   on: 'properties["Referring Page"]',
-        //   to_date: utcToEst.toISOString().split('T')[0],
-        //   from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
-        //   unit: "hour"
-        // }
+        var pageViewIndexParams = {
+          where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
+          on: 'properties["Referring Page"]',
+          to_date: utcToEst.toISOString().split('T')[0],
+          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+          unit: "hour"
+        }
         
-        // var $pastPageViewsIndexData = MP.api.segment('Page View', pageViewIndexParams)
+        var $pastPageViewsIndexData = MP.api.segment('Page View', pageViewIndexParams)
         
-        // $pastPageViewsIndexData.done(function(data){
-        //   var graphData = {}
-        //   var tableData = {}
-        //   _.each(data.json, function(dateObjs, series ){
-        //   [graphData[series], tableData[series]] = filterData(dateObjs, ' ')
-        //   })
-        //   var $chart = $('.pageViewsIndexChart').MPChart({
-        //     highchartsOptions: highChartsConfig,
-        //     chartType: 'line',
-        //     data: graphData
-        //   })
+        $pastPageViewsIndexData.done(function(data){
+          var graphData = {}
+          var tableData = {}
+          _.each(data.json, function(dateObjs, series ){
+          [graphData[series], tableData[series]] = filterData(dateObjs, ' ')
+          })
+          var $chart = $('.pageViewsIndexChart').MPChart({
+            highchartsOptions: highChartsConfig,
+            chartType: 'line',
+            data: graphData
+          })
           
-        //  $pageViewsIndexTable.clear()
-        //   _.each(tableData, function(vals, index){
-        //     var row = _.extend({'name': index}, vals)
-        //     $pageViewsIndexTable.row.add(row)
-        //   })
-        // $pageViewsIndexTable.draw();
-        // $('.pageViewsIndexDiv').css({'display': ''})
-        // })
-        // // rewrite multiseg as jql
+          $pageViewsIndexTable.clear()
+          _.each(tableData, function(vals, index){
+            var row = _.extend({'name': index}, vals)
+            $pageViewsIndexTable.row.add(row)
+          })
+          $pageViewsIndexTable.draw();
+          $('.pageViewsIndexDiv').css({'display': ''})
+        })
         
-        // /* Slot by story */
-        // var multiSegParams = {
-        //     event:"Page View",
-        //     type:"unique",
-        //     where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
-        //     limit:25,
-        //     inner:'properties["Story Headline"]',
-        //     outer:'properties["Referrer Slot"]',
-        //     outer_modifier:'numeric',
-        //     inner_modifier:'numeric',
-        //     to_date: utcToEst.toISOString().split('T')[0],
-        //     from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
-        //     unit:'hour',
-        //     buckets:12,
-        //     allow_more_buckets:false
-        // }
-        // var jqlParams = {
-        //   to: new Date().toISOString().split('T')[0],
-        //   from: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
-        // }
-        // var query = $('#multiseg').html()
-        // MP.api.jql(query,jqlParams).done(function(data){
-        // // can i make the three request for today, 24hr ago, and last week
-        // // var $multiseg = MP.api.query('api/2.0/segmentation/multiseg', multiSegParams)
-        //   var graphData = {}
-        //   var tableData = {}
-        //   _.each(data, function(obj){
-        //     [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value, 'T')
-        //   })
-        //   var $chart = $('.slotStoryViewsChart').MPChart({
-        //     highchartsOptions: highChartsConfig,
-        //     chartType: 'line',
-        //     data: graphData
-        //   })
+        /* Slot by story */
+        var multiSegParams = {
+            event:"Page View",
+            type:"unique",
+            where:'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
+            limit:25,
+            inner:'properties["Story Headline"]',
+            outer:'properties["Referrer Slot"]',
+            outer_modifier:'numeric',
+            inner_modifier:'numeric',
+            to_date: utcToEst.toISOString().split('T')[0],
+            from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+            unit:'hour',
+            buckets:12,
+            allow_more_buckets:false
+        }
         
-        //  $slotStoryViewsTable.clear()
-        //   _.each(tableData, function(vals, index){
-        //     // split this to slot, position title
-        //     var [slot, position, title] = index.split('~')
-        //     var row = _.extend({'slot': slot, 'position':position, 'title':title}, vals)
-        //     $slotStoryViewsTable.row.add(row)
-        //   })
-        //   $slotStoryViewsTable.draw();
-        //   $('.slotStoryViewsDiv').css({'display': ''})
-        // });
-      }        
+        var jqlParams = {
+          to: new Date().toISOString().split('T')[0],
+          from: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+        }
+        
+        var query = $('#multiseg').html()
+        MP.api.jql(query,jqlParams).done(function(data){
+          var graphData = {}
+          var tableData = {}
+          _.each(data, function(obj){
+            [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value, 'T')
+          })
+          var $chart = $('.slotStoryViewsChart').MPChart({
+            highchartsOptions: highChartsConfig,
+            chartType: 'line',
+            data: graphData
+          })
+          $slotStoryViewsTable.clear()
+          _.each(tableData, function(vals, index){
+            // split this to slot, position title
+            var [slot, position, title] = index.split('~')
+            var row = _.extend({'slot': slot, 'position':position, 'title':title}, vals)
+            $slotStoryViewsTable.row.add(row)
+          })
+          $slotStoryViewsTable.draw();
+          $('.slotStoryViewsDiv').css({'display': ''})
+        });
+      }      
+      
       function filterData(dateObjs, seperator){
         var dateObj = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
         var graphData = _.pick(dateObjs, function(v,date) { 
