@@ -91,6 +91,40 @@
     <script>
       // Use Data tables for better sorting/limiting etc
        /* slot page views */
+       
+      $('.pageViewsSlotTable').DataTable( {
+            columns: [
+                { title: 'Slot', data: 'name' },
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '% Change over Yesterday', data: 'Percent Day over Day' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: '% Change over Last Week', data: 'Percent Last Week' },
+                { title: 'Last Week', data: 'Last Week' },
+            ]
+        });
+        
+      $('.pageViewsIndexTable').DataTable( {
+            columns: [
+                { title: 'Index', data: 'name' },
+                { title: 'Current Hour', data: 'Current Hour' },
+                { title: '% Change over Yesterday', data: 'Percent Day over Day' },
+                { title: '24 Hours Ago', data: '24 Hours Ago'},
+                { title: '% Change over Last Week', data: 'Percent Last Week' },
+                { title: 'Last Week', data: 'Last Week' },
+            ]
+        });
+      $('.slotStoryViewsTable').DataTable( {
+        columns: [
+            { title: 'Slot Story', data: 'slot' },
+            { title: 'Position', data: 'position'},
+            { title: 'Title', data: 'title'},
+            { title: 'Current Hour', data: 'Current Hour' },
+            { title: '% Change over Yesterday', data: 'Percent Day over Day' },
+            { title: '24 Hours Ago', data: '24 Hours Ago'},
+            { title: '% Change over Last Week', data: 'Percent Last Week' },
+            { title: 'Last Week', data: 'Last Week' },
+        ]
+      });
       function Script() { 
         var highChartsConfig = {
               tooltip: {
@@ -136,16 +170,7 @@
             chartType: 'line',
             data: graphData
           })
-          $('.pageViewsSlotTable').DataTable( {
-              columns: [
-                  { title: 'Slot', data: 'name' },
-                  { title: 'Current Hour', data: 'Current Hour' },
-                  { title: '% Change over Yesterday', data: 'Percent Day over Day' },
-                  { title: '24 Hours Ago', data: '24 Hours Ago'},
-                  { title: '% Change over Last Week', data: 'Percent Last Week' },
-                  { title: 'Last Week', data: 'Last Week' },
-              ]
-          });
+          
           var table = $('.pageViewsSlotTable').DataTable().clear()
           _.each(tableData, function(vals, slot){
             var row = _.extend({'name': slot}, vals)
@@ -179,16 +204,7 @@
             chartType: 'line',
             data: graphData
           })
-          $('.pageViewsIndexTable').DataTable( {
-              columns: [
-                  { title: 'Index', data: 'name' },
-                  { title: 'Current Hour', data: 'Current Hour' },
-                  { title: '% Change over Yesterday', data: 'Percent Day over Day' },
-                  { title: '24 Hours Ago', data: '24 Hours Ago'},
-                  { title: '% Change over Last Week', data: 'Percent Last Week' },
-                  { title: 'Last Week', data: 'Last Week' },
-              ]
-          });
+          
           var table = $('.pageViewsIndexTable').DataTable().clear()
           _.each(tableData, function(vals, index){
             var row = _.extend({'name': index}, vals)
@@ -233,18 +249,7 @@
             chartType: 'line',
             data: graphData
           })
-          $('.slotStoryViewsTable').DataTable( {
-              columns: [
-                  { title: 'Slot Story', data: 'slot' },
-                  { title: 'Position', data: 'position'},
-                  { title: 'Title', data: 'title'},
-                  { title: 'Current Hour', data: 'Current Hour' },
-                  { title: '% Change over Yesterday', data: 'Percent Day over Day' },
-                  { title: '24 Hours Ago', data: '24 Hours Ago'},
-                  { title: '% Change over Last Week', data: 'Percent Last Week' },
-                  { title: 'Last Week', data: 'Last Week' },
-              ]
-          });
+        
           var table = $('.slotStoryViewsTable').DataTable().clear()
           _.each(tableData, function(vals, index){
             // split this to slot, position title
