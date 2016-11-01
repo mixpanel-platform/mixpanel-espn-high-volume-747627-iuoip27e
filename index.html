@@ -9,12 +9,24 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageViewsSlotChart"></div>
-    <table id="table" class="display pageViewsSlotTable" width="100%"></table>
-    <div class="pageViewsIndexChart"></div>
-    <table id="table" class="display pageViewsIndexTable" width="100%"></table>
-    <div class="slotStoryViewsChart"></div>
-    <table id="table" class="display slotStoryViewsTable" width="100%"></table>
+    <div class="pageViewsSlot">
+      <h1>Page Views By Slot</h1>
+      <div class="pageViewsSlotChart"></div>
+      <table id="table" class="display pageViewsSlotTable" width="100%"></table>
+    </div>
+    <br>
+    <div class="slotStoryViews">
+      <h1>Slot and Story Views</h1>
+      <div class="slotStoryViewsChart"></div>
+      <table id="table" class="display slotStoryViewsTable" width="100%"></table>
+    </div>
+    <br>
+    <div class="pageViewsIndex">  
+      <h1>Page Views by Index</h1>
+      <div class="pageViewsIndexChart"></div>
+      <table id="table" class="display pageViewsIndexTable" width="100%"></table>
+    </div>
+    
     <script id='multiseg'>
       function main() {
         return Events({
