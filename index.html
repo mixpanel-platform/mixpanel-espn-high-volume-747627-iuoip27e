@@ -9,20 +9,20 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageViewsSlot">
-      <h1 style="display: none" class="pageViewsSlotHeader">Page Views By Slot</h1>
+    <div class="pageViewsSlotDiv" style="display: none" >
+      <h1 class="pageViewsSlotHeader">Page Views By Slot</h1>
       <div class="pageViewsSlotChart"></div>
       <table id="table" class="display pageViewsSlotTable" width="100%"></table>
     </div>
     <br>
-    <div class="slotStoryViews">
-      <h1 style="display: none" class="slotStoryViewsHeader">Slot and Story Views</h1>
+    <div class="slotStoryViewsDiv" style="display: none">
+      <h1 class="slotStoryViewsHeader">Slot and Story Views</h1>
       <div class="slotStoryViewsChart"></div>
       <table id="table" class="display slotStoryViewsTable" width="100%"></table>
     </div>
     <br>
-    <div class="pageViewsIndex">  
-      <h1 style="display: none" class="pageViewsIndexHeader">Page Views by Index</h1>
+    <div class="pageViewsIndexDiv" style="display: none" >  
+      <h1 class="pageViewsIndexHeader">Page Views by Index</h1>
       <div class="pageViewsIndexChart"></div>
       <table id="table" class="display pageViewsIndexTable" width="100%"></table>
     </div>
@@ -113,7 +113,7 @@
                 { title: 'Last Week', data: 'Last Week' },
             ]
         });
-      var slotStoryViewsTable = $('.slotStoryViewsTable').DataTable( {
+      var $slotStoryViewsTable = $('.slotStoryViewsTable').DataTable( {
         columns: [
             { title: 'Slot Story', data: 'slot' },
             { title: 'Position', data: 'position'},
@@ -180,7 +180,7 @@
             $pageViewsSlotTable.row.add(row)
           })
          $pageViewsSlotTable.draw();
-         $('.pageViewsSlotHeader').css({'display': ''})
+         $('.pageViewsSlotDiv').css({'display': ''})
         })
         
         
@@ -208,13 +208,13 @@
         //     data: graphData
         //   })
           
-        //   var table = $('.pageViewsIndexTable').DataTable().clear()
+        //  $pageViewsIndexTable.clear()
         //   _.each(tableData, function(vals, index){
         //     var row = _.extend({'name': index}, vals)
-        //     table.row.add(row)
+        //     $pageViewsIndexTable.row.add(row)
         //   })
-        // table.draw();
-        // $('.pageViewsIndexHeader').css({'display': ''})
+        // $pageViewsIndexTable.draw();
+        // $('.pageViewsIndexDiv').css({'display': ''})
         // })
         // // rewrite multiseg as jql
         
@@ -253,16 +253,15 @@
         //     data: graphData
         //   })
         
-        //   var table = $('.slotStoryViewsTable').DataTable().clear()
+        //  $slotStoryViewsTable.clear()
         //   _.each(tableData, function(vals, index){
         //     // split this to slot, position title
         //     var [slot, position, title] = index.split('~')
         //     var row = _.extend({'slot': slot, 'position':position, 'title':title}, vals)
-        //     table.row.add(row)
-            
+        //     $slotStoryViewsTable.row.add(row)
         //   })
-        //   table.draw();
-        //   $('.slotStoryViewsHeader').css({'display': ''})
+        //   $slotStoryViewsTable.draw();
+        //   $('.slotStoryViewsDiv').css({'display': ''})
         // });
       }        
       function filterData(dateObjs, seperator){
