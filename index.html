@@ -247,7 +247,7 @@
         var currHour = seperator + pad(dateObj.getHours(),2) + ':00:00'
         var currDay = dateObj.getFullYear() + '-' + pad((dateObj.getMonth() + 1),2) + '-' + pad(dateObj.getDate(),2) + currHour
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
-        var lastDay = lastDateObj.getFullYear() + '-' + pad((lastDateObj.getMonth() + 1),2 + '-' + pad(lastDateObj.getDate(),2) + currHour
+        var lastDay = lastDateObj.getFullYear() + '-' + pad((lastDateObj.getMonth() + 1),2) + '-' + pad(lastDateObj.getDate(),2) + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
         var lastWeek = lastWkObj.getFullYear() + '-' + pad((lastWkObj.getMonth() + 1),2) + '-' + pad(lastWkObj.getDate(),2) + currHour
         var tableData = {
