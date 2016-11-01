@@ -28,6 +28,7 @@
     </div>
     
     <script id='multiseg'>
+      var utcToEst = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
       function main() {
         return Events({
           from_date: params.from,
@@ -35,6 +36,7 @@
           event_selectors: [{event: 'Page View', selector:'defined (properties["Referrer Slot"]) and defined (properties["Referrer Position"]) and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])'}]
         })
         .filter(function(event){ return today(event) || yesterdayHour(event) || weekHour(event)})
+        
         .groupBy([stringSlot, "properties.Referrer Position"], function(accs, events){
           var res = {}
           _.each(events, function(event){
@@ -46,7 +48,6 @@
             }
           })
           _.each(accs, function(acc){
-            
             _.each(acc, function(v, k){
               if (k == 'story' || k =='last'){
                 if (acc.last > res.last || !res.last) {
@@ -69,27 +70,30 @@
           }
           return res
         })
+        // .filter(item => _.keys(item.value).length > 2)
       }
+      
       function stringSlot(event){
         return String(event.properties["Referrer Slot"])
       }
+      
       function today(event){
-        return new Date().toISOString().split('T')[0] == new Date(event.time).toISOString().split('T')[0]
+        return utcToEst.toISOString().split('T')[0] == new Date(event.time).toISOString().split('T')[0]
       }
       
       function yesterdayHour(event){
-        return new Date(new Date() - 1000 * 60 * 60 * 24).toISOString().split(':')[0] == new Date(event.time).toISOString().split(':')[0]
+        return new Date(utcToEst - 1000 * 60 * 60 * 24).toISOString().split(':')[0] == new Date(event.time).toISOString().split(':')[0]
       }
       
       function weekHour(event){
-        return new Date(new Date() - 1000 * 60 * 60 * 24 * 7).toISOString().split(':')[0] == new Date(event.time).toISOString().split(':')[0]
+        return new Date(utcToEst - 1000 * 60 * 60 * 24 * 7).toISOString().split(':')[0] == new Date(event.time).toISOString().split(':')[0]
       }
     </script>
     <script>
       // Use Data tables for better sorting/limiting etc
        /* slot page views */
        
-       var highChartsConfig = {
+      var highChartsConfig = {
             tooltip: {
                 formatter: function () {
                   var dateObj = new Date(this.x)
@@ -111,12 +115,12 @@
               }
             },
           }
-      
+      var utcToEst = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
       var pageViewSlotParams = {
         where: 'defined (properties["Referrer Slot"]) and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
         on: 'properties["Referrer Slot"]',
-        to_date: new Date().toISOString().split('T')[0],
-        from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+        to_date: utcToEst.toISOString().split('T')[0],
+        from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
         unit: "hour"
       }
       
@@ -156,8 +160,8 @@
       var pageViewIndexParams = {
         where: '(properties["Edition Name"] == "English / United States") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
         on: 'properties["Referring Page"]',
-        to_date: new Date().toISOString().split('T')[0],
-        from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+        to_date: utcToEst.toISOString().split('T')[0],
+        from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
         unit: "hour"
       }
       
@@ -202,8 +206,8 @@
           outer:'properties["Referrer Slot"]',
           outer_modifier:'numeric',
           inner_modifier:'numeric',
-          to_date: new Date().toISOString().split('T')[0],
-          from_date: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+          to_date: utcToEst.toISOString().split('T')[0],
+          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
           unit:'hour',
           buckets:12,
           allow_more_buckets:false
