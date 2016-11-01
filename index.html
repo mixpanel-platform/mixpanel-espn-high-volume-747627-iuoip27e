@@ -10,19 +10,19 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="pageViewsSlot">
-      <h1>Page Views By Slot</h1>
+      <h1 style="display: none" class="pageViewsSlotHeader">Page Views By Slot</h1>
       <div class="pageViewsSlotChart"></div>
       <table id="table" class="display pageViewsSlotTable" width="100%"></table>
     </div>
     <br>
     <div class="slotStoryViews">
-      <h1>Slot and Story Views</h1>
+      <h1 style="display: none" class="slotStoryViewsHeader">Slot and Story Views</h1>
       <div class="slotStoryViewsChart"></div>
       <table id="table" class="display slotStoryViewsTable" width="100%"></table>
     </div>
     <br>
     <div class="pageViewsIndex">  
-      <h1>Page Views by Index</h1>
+      <h1 style="display: none" class="pageViewsIndexHeader">Page Views by Index</h1>
       <div class="pageViewsIndexChart"></div>
       <table id="table" class="display pageViewsIndexTable" width="100%"></table>
     </div>
@@ -147,6 +147,7 @@
           table.row.add(row)
         })
        table.draw();
+       $('.pageViewsSlotHeader').css({'display': ''})
       })
       
       
@@ -187,6 +188,7 @@
           table.row.add(row)
         })
        table.draw();
+      $('.pageViewsIndexHeader').css({'display': ''})
       })
       // rewrite multiseg as jql
       
@@ -247,6 +249,7 @@
         })
         table.draw();
         */
+        $('.slotStoryViewsHeader').css({'display': ''})
       });
       
       function filterData(dateObjs, seperator){
