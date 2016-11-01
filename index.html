@@ -7,24 +7,29 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageViewsSlotDiv">
-      <h1 class="pageViewsSlotHeader" style="display: none">Page Views By Slot</h1>
+    <div class="pageViewsSlotDiv hidden">
+      <h1 class="pageViewsSlotHeader" >Page Views By Slot</h1>
       <div class="pageViewsSlotChart"></div>
-      <table id="table" class="display pageViewsSlotTable" width="100%" style="display: none"></table>
+      <table id="table" class="display pageViewsSlotTable" width="100%"></table>
     </div>
     <br>
-    <div class="slotStoryViewsDiv">
-      <h1 class="slotStoryViewsHeader" style="display: none">Slot and Story Views</h1>
+    <div class="slotStoryViewsDiv hidden">
+      <h1 class="slotStoryViewsHeader">Slot and Story Views</h1>
       <div class="slotStoryViewsChart"></div>
-      <table id="table" class="display slotStoryViewsTable" width="100%"  style="display: none"></table>
+      <table id="table" class="display slotStoryViewsTable" width="100%"></table>
     </div>
     <br>
-    <div class="pageViewsIndexDiv">  
-      <h1 class="pageViewsIndexHeader" style="display: none">Page Views by Index</h1>
+    <div class="pageViewsIndexDiv hidden">  
+      <h1 class="pageViewsIndexHeader">Page Views by Index</h1>
       <div class="pageViewsIndexChart"></div>
-      <table id="table" class="display pageViewsIndexTable" width="100%" style="display: none"></table>
+      <table id="table" class="display pageViewsIndexTable" width="100%"></table>
     </div>
     
     <script id='multiseg'>
@@ -180,7 +185,7 @@
             $pageViewsSlotTable.row.add(row)
           })
          $pageViewsSlotTable.draw();
-         $('.pageViewsSlotDiv h1, .pageViewsSlotDiv table').css({'display': ''})
+         $('.pageViewsSlotDiv').removeClass('hidden')
         })
         
         
@@ -214,7 +219,7 @@
             $pageViewsIndexTable.row.add(row)
           })
           $pageViewsIndexTable.draw();
-          $('.pageViewsIndexDiv').css({'display': ''})
+          $('.pageViewsIndexDiv').removeClass('hidden')
         })
         
         /* Slot by story */
@@ -259,7 +264,7 @@
             $slotStoryViewsTable.row.add(row)
           })
           $slotStoryViewsTable.draw();
-          $('.slotStoryViewsDiv').css({'display': ''})
+          $('.slotStoryViewsDiv').removeClass('hidden')
         });
       }      
       
