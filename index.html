@@ -274,8 +274,8 @@
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
         var lastWeek = lastWkObj.getFullYear() + '-' + pad((lastWkObj.getMonth() + 1),2) + '-' + pad(lastWkObj.getDate(),2) + currHour
         
-        var percentYesterday = (zeroTest(dateObjs[currDay], dateObjs[lastDay]) * 100 - 100) || 0
-        var percentLastWeek = (zeroTest(dateObjs[currDay], dateObjs[lastWeek]) * 100 - 100) || 0
+        var percentYesterday = percent(dateObjs[currDay], dateObjs[lastDay])
+        var percentLastWeek = percent(dateObjs[currDay], dateObjs[lastWeek])
         
         var tableData = {
           'Current Hour': dateObjs[currDay] || 0,
@@ -288,12 +288,16 @@
       }
       
       function pad(num, size){ return ('000000000' + num).substr(-size)};
-      function zeroTest(num, denom){ 
+      function percent(num, denom){ 
         if (denom == 0) {
           return 0 
         } else {
-          return num / denom
+          return (num / denom * 100 - 100).toFixed(1)
         }
+      }
+      
+      function percent(num, denom) {
+        
       }
     </script>
   </body>
