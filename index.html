@@ -237,7 +237,7 @@
         */
       });
       
-      var filterData = function(dateObjs, seperator){
+      function filterData(dateObjs, seperator){
         var graphData = _.pick(dateObjs, function(v,date) { 
           if (new Date(date) > new Date() - (1000 * 60 * 60 * 8) && new Date(date) < new Date()){
             return true
@@ -245,11 +245,11 @@
         })  
         var dateObj = new Date()
         var currHour = seperator + dateObj.getHours() + ':00:00'
-        var currDay = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + currHour
+        var currDay = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + pad(dateObj.getDate(),2) + currHour
         var lastDateObj = new Date(new Date() - (1000 * 60 * 60 * 24))
-        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + lastDateObj.getDate() + currHour
+        var lastDay = lastDateObj.getFullYear() + '-' + (lastDateObj.getMonth() + 1) + '-' + pad(lastDateObj.getDate(),2) + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
-        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + lastWkObj.getDate() + currHour
+        var lastWeek = lastWkObj.getFullYear() + '-' + (lastWkObj.getMonth() + 1) + '-' + pad(lastWkObj.getDate(),2) + currHour
         var tableData = {
           'Current Hour': dateObjs[currDay], 
           '24 Hours Ago': dateObjs[lastDay], 
@@ -258,6 +258,8 @@
         debugger
         return [graphData, tableData]
       }
+      
+      function pad(num, size){ return ('000000000' + num).substr(-size)
     </script>
   </body>
 </html>
