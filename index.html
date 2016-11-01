@@ -9,19 +9,19 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <div class="pageViewsSlotDiv" style="display: none" >
+    <div class="pageViewsSlotDiv">
       <h1 class="pageViewsSlotHeader">Page Views By Slot</h1>
       <div class="pageViewsSlotChart"></div>
       <table id="table" class="display pageViewsSlotTable" width="100%"></table>
     </div>
     <br>
-    <div class="slotStoryViewsDiv" style="display: none">
+    <div class="slotStoryViewsDiv">
       <h1 class="slotStoryViewsHeader">Slot and Story Views</h1>
       <div class="slotStoryViewsChart"></div>
       <table id="table" class="display slotStoryViewsTable" width="100%"></table>
     </div>
     <br>
-    <div class="pageViewsIndexDiv" style="display: none" >  
+    <div class="pageViewsIndexDiv">  
       <h1 class="pageViewsIndexHeader">Page Views by Index</h1>
       <div class="pageViewsIndexChart"></div>
       <table id="table" class="display pageViewsIndexTable" width="100%"></table>
@@ -132,7 +132,7 @@
                   formatter: function () {
                     var dateObj = new Date(this.x)
                     var [day, mon, date, year, hour] = dateObj.toString().split(' ')
-                    var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ' ' + this.y
+                    var response = [mon, date, hour].join(' ') + '<br/>' + this.series.name + ': ' + this.y
                     return response
                   }
               },
