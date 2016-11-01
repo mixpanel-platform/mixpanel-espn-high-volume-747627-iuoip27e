@@ -291,7 +291,7 @@
         if (denom == 0 || !denom) {
           return 0 
         } else {
-          return (num / denom * 100 - 100).toFixed(1)
+          return ((num - denom) / denom * 100).toFixed(1)
         }
       }
 
