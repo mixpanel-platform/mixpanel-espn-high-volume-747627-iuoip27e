@@ -172,6 +172,7 @@
           })
           
           var table = $('.pageViewsSlotTable').DataTable().clear()
+          debugger
           _.each(tableData, function(vals, slot){
             var row = _.extend({'name': slot}, vals)
             table.row.add(row)
