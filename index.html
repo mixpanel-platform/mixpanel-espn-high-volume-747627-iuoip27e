@@ -234,7 +234,7 @@
           var graphData = {}
           var tableData = {}
           _.each(data, function(obj){
-            [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~Story " + String(obj.story)]] = filterData(obj.value, 'T')
+            [graphData["Slot " + String(obj.slot) + ":Position " + String(obj.position) + ":Story " + String(obj.story)], tableData["Slot " + String(obj.slot) + "~Position " + String(obj.position) + "~" + String(obj.story)]] = filterData(obj.value, 'T')
           })
           var $chart = $('.slotStoryViewsChart').MPChart({
             highchartsOptions: highChartsConfig,
