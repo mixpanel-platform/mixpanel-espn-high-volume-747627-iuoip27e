@@ -266,7 +266,7 @@
         var lastDay = lastDateObj.getFullYear() + '-' + pad((lastDateObj.getMonth() + 1),2) + '-' + pad(lastDateObj.getDate(),2) + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
         var lastWeek = lastWkObj.getFullYear() + '-' + pad((lastWkObj.getMonth() + 1),2) + '-' + pad(lastWkObj.getDate(),2) + currHour
-        
+        debugger
         var percentYesterday = percent(dateObjs[currDay], dateObjs[lastDay])
         var percentLastWeek = percent(dateObjs[currDay], dateObjs[lastWeek])
         if (percentLastWeek !== percentLastWeek) debugger
