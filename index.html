@@ -159,8 +159,8 @@
           where: 'defined (properties["Referrer Slot"]) and (properties["$os"] == "Linux" or properties["$os"] == "Mac OS X" or properties["$os"] == "Windows") and (properties["Referring Page"] == "Home Page") and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])',
           on: 'properties["Referrer Slot"]',
           to_date: utcToEst.toISOString().split('T')[0],
-          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
-          unit: "hour"
+          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 8).toISOString().split('T')[0],
+          unit: "minute"
         }
         
         var $pastPageViewsSlot = MP.api.segment('Page View', pageViewSlotParams)
@@ -266,7 +266,7 @@
         var lastDay = lastDateObj.getFullYear() + '-' + pad((lastDateObj.getMonth() + 1),2) + '-' + pad(lastDateObj.getDate(),2) + currHour
         var lastWkObj = new Date(new Date() - (1000 * 60 * 60 * 24 * 7))
         var lastWeek = lastWkObj.getFullYear() + '-' + pad((lastWkObj.getMonth() + 1),2) + '-' + pad(lastWkObj.getDate(),2) + currHour
-        debugger
+        
         var percentYesterday = percent(dateObjs[currDay], dateObjs[lastDay])
         var percentLastWeek = percent(dateObjs[currDay], dateObjs[lastWeek])
         if (percentLastWeek !== percentLastWeek) debugger
