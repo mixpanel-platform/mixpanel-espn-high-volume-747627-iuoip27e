@@ -194,7 +194,7 @@
           where: '(properties["Edition Name"] == "English / United States") and (properties["$os"] == "Linux" or properties["$os"] == "Mac OS X" or properties["$os"] == "Windows") and (properties["Referring Page"] != "Home Page") and defined (properties["Referring Page"])',
           on: 'properties["Referring Page"]',
           to_date: utcToEst.toISOString().split('T')[0],
-          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+          from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 8).toISOString().split('T')[0],
           unit: "hour"
         }
         
@@ -224,7 +224,7 @@
         /* Slot by story */
         var jqlParams = {
           to: new Date().toISOString().split('T')[0],
-          from: new Date(new Date() - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
+          from: new Date(new Date() - 60 * 60 * 1000 * 24 * 8).toISOString().split('T')[0],
           os: 'desktop'
         }
         
