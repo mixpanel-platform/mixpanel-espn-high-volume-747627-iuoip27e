@@ -38,11 +38,11 @@
         return Events({
           from_date: params.from,
           to_date:   params.to,
-          event_selectors: [{event: 'Page View', selector:'defined (properties["Referrer Slot"]) and (properties["$os"] == "Linux" or properties["$os"] == "Mac OS X" or properties["$os"] == "Windows") and defined (properties["Referrer Position"]) and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])'}]
+          event_selectors: [{event: 'Page View', selector:'defined (properties["Referrer Slot"]) and (properties["$os"] == "Linux" or properties["$os"] == "Mac OS X" or properties["$os"] == "Windows") and defined (properties["Referrer Position Type"]) and (properties["Edition Name"] == "English / United States") and defined (properties["Story Headline"])'}]
         })
         .filter(function(event){ return today(event) || yesterdayHour(event) || weekHour(event)})
         
-        .groupBy([stringSlot, "properties.Referrer Position"], function(accs, events){
+        .groupBy([stringSlot, "properties.Referrer Position Type"], function(accs, events){
           var res = {}
           _.each(events, function(event){
             var timeStr = [new Date(event.time).toISOString().split(':')[0],'00','00'].join(':')
