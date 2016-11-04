@@ -160,7 +160,7 @@
           on: 'properties["Referrer Slot"]',
           to_date: utcToEst.toISOString().split('T')[0],
           from_date: new Date(utcToEst - 60 * 60 * 1000 * 24 * 7).toISOString().split('T')[0],
-          unit: "hour"
+          unit: "minute"
         }
         
         var $pastPageViewsSlot = MP.api.segment('Page View', pageViewSlotParams)
